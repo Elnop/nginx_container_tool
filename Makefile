@@ -1,20 +1,17 @@
-.PHONY: run
-run: $(TARGET)
+.PHONY: start
+start:
 	@if [ -z "$(TARGET)" ]; then \
-		echo "You need to specify TARGET ex: make run TARGET=simple_site"; \
+		echo "You need to specify TARGET ex: make start TARGET=simple_site"; \
 	else \
-		docker run --name $(TARGET) -p 2000:2000 -d $(TARGET); \
+		docker build --build-arg TARGET=$(TARGET) \
+		--no-cache \
+		-t $(TARGET) \
+		.; \
+		docker run --name $(TARGET) $(foreach port, $(PORTS), -p $(port):$(port)) -d $(TARGET); \
 	fi
 
-.PHONY: $(TARGET)
-$(TARGET):
-	docker build --build-arg TARGET=$(TARGET) \
-	--no-cache \
-	-t $(TARGET) \
-	.
-
 .PHONY: clean
-clean: $(TARGET)
+clean:
 	@if [ -z "$(TARGET)" ]; then \
 		echo "You need to specify TARGET ex: make clean TARGET=simple_site"; \
 	else \
@@ -26,11 +23,7 @@ clean: $(TARGET)
 .PHONY: enter
 enter:
 	@if [ -z "$(TARGET)" ]; then \
-		echo "You need to specify TARGET ex: make run TARGET=simple_site"; \
+		echo "You need to specify TARGET ex: make enter TARGET=simple_site"; \
 	else \
-		docker exec -it $(TARGET) bash; \
+		docker exec -it $(TARGET) sh; \
 	fi
-
-.PHONY: help
-help
-	@cat README.md
