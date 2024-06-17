@@ -12,6 +12,7 @@ This project is a tool designed to quickly set up a Dockerized Nginx environment
     - [Start](#Start)
     - [Clean](#Clean)
     - [Enter](#Enter)
+    - [Re](#Re)
 - [Additional Resources](#additional-resources)
 
 ## Introduction
@@ -75,7 +76,7 @@ make clean TARGET=simple_site
 Build and run the Docker container for the specified target.
 
 ```bash
-make TARGET=<target_name> PORTS="<port1> <port2>"
+make TARGET=<target_name> PORTS="<port1> <port2> <...>"
 ```
 
 ### Clean
@@ -91,6 +92,14 @@ Enter in the specified target container.
 
 ```bash
 make enter TARGET=<target_name>
+```
+
+### Re
+
+Clean, build and start target container.
+
+```bash
+make re TARGET=<target_name> PORTS="<port1> <port2> <...>"
 ```
 
 ### Additional Resources
