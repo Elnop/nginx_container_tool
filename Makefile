@@ -1,7 +1,7 @@
 .PHONY: start
 start: $(TARGET)
 	docker build --build-arg TARGET=$(TARGET) --no-cache -t $(TARGET) .
-	docker run --name $(TARGET) $(foreach port, $(PORTS), -p $(port):$(port)) $(TARGET)
+	docker run -d --name $(TARGET) $(foreach port, $(PORTS), -p $(port):$(port)) $(TARGET)
 
 $(TARGET):
 	@if [ -z "$@" ]; then \
