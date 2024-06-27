@@ -58,16 +58,18 @@ Assume you have a config file in configs and website source folder in www with t
 To deploy the website, run:
 
 ```bash
-make TARGET=simple_site PORTS="2000 3000"
+make NAME=simple_site PORT=2000 CONFIG=configs/simple_site.conf WWW=www/simple_site
 ```
+**NAME** is the name of the configuration and source folder.
+**PORTS** is a space-separated list of ports to be exposed.
+**CONFIG** is a nginx server config file
+**WWW** is a folder containing website/application sources
+
 To stop and clean containers, run:
 
 ```bash
-make clean TARGET=simple_site
+make clean NAME=simple_site
 ```
-
-**TARGET** is the name of the configuration and source folder.
-**PORTS** is a space-separated list of ports to be exposed.
 
 ## Makefile Commands
 
@@ -76,7 +78,7 @@ make clean TARGET=simple_site
 Build and run the Docker container for the specified target.
 
 ```bash
-make TARGET=<target_name> PORTS="<port1> <port2> <...>"
+make start NAME=<image/container name> PORT=<ports forwarded> CONFIG=<config file path> WWW=<config folder path>
 ```
 
 ### Clean
@@ -84,14 +86,14 @@ make TARGET=<target_name> PORTS="<port1> <port2> <...>"
 Stop and remove the Docker container and image for the specified target.
 
 ```bash
-make clean TARGET=<target_name>
+make clean NAME=<image/container name>
 ```
 ### Enter
 
 Enter in the specified target container.
 
 ```bash
-make enter TARGET=<target_name>
+make enter NAME=<container name>
 ```
 
 ### Re
@@ -99,7 +101,7 @@ make enter TARGET=<target_name>
 Clean, build and start target container.
 
 ```bash
-make re TARGET=<target_name> PORTS="<port1> <port2> <...>"
+make re NAME=<image/container name> PORT=<ports forwarded> CONFIG=<config file path> WWW=<config folder path>
 ```
 
 ### Additional Resources
